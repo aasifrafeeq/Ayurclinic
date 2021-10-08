@@ -1,0 +1,15 @@
+{% extends "patients/layout.html" %}
+
+{% block body %}
+<div style="text-align: left;">
+    <h2>Name : {{ medicine.name }}</h2>
+    <h3>Price : Rs.{{ medicine.price }}</h3>
+    <h2>Users :</h2>
+    <ul>
+        {% for user in users %}
+        <li><a href="{% url 'patient' user.id %}">{{ user.name }}</a> : {{ user.age }} years old</li>
+        <br>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

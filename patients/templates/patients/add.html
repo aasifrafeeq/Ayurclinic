@@ -1,0 +1,41 @@
+
+{% extends "patients/layout.html" %}
+
+{% block body %}
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.querySelector('#submit').disabled = true ;
+
+      document.querySelector('#age').onkeyup = ()=>{
+        if(( document.querySelector('#name').value.length > 0 ) && ( document.getElementById("age").value.length >0 ))
+        {  
+            document.querySelector('#submit').disabled = false;
+        }
+        else {
+          document.querySelector('#submit').disabled = true;
+        }
+      }
+    })
+  </script>
+<div id="form-container">  
+    <form autocomplete="off" action="" method="POST">
+        {% csrf_token %}
+        Name: <input id="name" type="text" name="name" size="12">
+            <br><br>
+        <label for="Gender">Gender:</label>
+        <select id="Gender" name="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+        <br><br>
+
+        Age: <input id="age" type="number" name="age" min="0" max="100">
+        <br>
+        <br>        
+        Diagnosis: <textarea style="font-size: 25px;" id="diagnosis" name="diagnosis" rows="4" cols="20"></textarea>
+        <br><br>
+        <input id="submit" value="Next" style="height: fit-content;" type="submit">
+  </form>
+</div>
+
+{% endblock %}

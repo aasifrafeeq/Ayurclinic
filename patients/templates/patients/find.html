@@ -1,0 +1,23 @@
+
+{% extends "patients/layout.html" %}
+
+{% block body %}
+<h2>{{ title }}</h2>
+<br><br>
+
+<form action="" method="POST">
+    {% csrf_token %}
+        <input autocomplete="off" style="height:30px; width: 150px;" type="text" name="patient">
+        <input style="height: fit-content; width: fit-content;" type="submit" value="Search">
+</form>
+
+<ul style="text-align: left;">
+    {% for result in results %}
+    <li><a href="{% url 'patient' result.id %}">{{ result.name }}</a> : {{ result.age }} years old</li>
+    <br>
+    {% empty %}
+    <li style="color: red;">No results Found</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

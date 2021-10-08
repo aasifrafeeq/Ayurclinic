@@ -1,0 +1,11 @@
+
+{% extends "patients/layout.html" %}
+
+{% block body %}
+<div id="main">
+    <button><a href="{% url 'add' %}">New Patient</a></button>
+    <button><a href="{% url 'find_patient' %}">Find Patient</a></button>
+    <button><a href="{% url 'find_users' %}">Find Presciptions</a></button>
+  </div>
+
+{% endblock %}

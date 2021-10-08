@@ -1,0 +1,56 @@
+
+{% extends "patients/layout.html" %}
+
+{% block body %}
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+            const btnEl=document.querySelector(".submit")
+            const medEl=document.querySelector("#medicine")
+            btnEl.disabled = true
+            medEl.onkeyup = ()=>{
+                if( medEl.value.length > 0 )
+                {  
+                    btnEl.disabled=false
+                }
+                else {
+                btnEl.disabled = true;
+                }
+            }
+                    
+        })
+</script>
+
+<h2>Patient-id :{{ patient.id }} </h2> 
+<h3>Patient-name :{{ patient.name }} </h3> 
+
+<div style="text-align: left;">
+Current Medicines:
+    <ul>
+        {% for med in taking_meds %}
+        <li>{{ med }}</li>
+        {% empty %}
+        <li style="color: red;">No Medicines Prescribed</li>
+        {% endfor %}
+    </ul>
+    <form id="medicine-form" action="{% url 'add_med' patient.id %}" method="POST">
+        {% csrf_token %}
+
+        <label for="medicine">Choose your Medicine from the list:</label><br>
+
+        <input autocomplete="off" style="height:30px;" list="meds" name="medicine" id="medicine">
+            <datalist id="meds">
+                    {% for med in non_taking_meds %}
+                <option style="font-size: 15px;" value="{{ med.name }}">{{ med.name }}</option>
+                    {% endfor %}
+            </datalist><br>
+
+        <input class="submit" style="height: fit-content; width: fit-content;" type="submit" value="add">
+    
+    </form>
+    <div style="text-align: right">
+        <button style=" height: fit-content; background-color: rgb(116, 25, 202);color: wheat;"><a style="color: wheat;" href="{% url 'index' %}">Save</a></button>
+    </div>
+
+</div>
+
+{% endblock %}
